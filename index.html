@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda da Semana</title>
+    <link rel="stylesheet" href="./src/css/index.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="container nav">
+            <img src="./src/img/logo.png" alt="" width="">
+            <div class="title">
+                <label for="">Agenda da semana</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container conteudo">
+        <div class="funcionario">
+            <div class="header">
+                <h4>Adicionar Funcionário</h4>
+            </div>
+            <div class="addFuncionarioStyle">
+                <input type="text" name="name" id="name" placeholder="Nome do funcionário">
+                <button id="save">Salvar</button>
+            </div>
+
+            <ul class="listaFuncionarios">
+            </ul>
+        </div>
+        <div style="margin-top: 5px; display: flex; flex-direction: column;">
+            <div class="actions">
+                <select name="day" id="day">
+                    <option value="1">Domingo</option>
+                    <option value="2">Segunda</option>
+                    <option value="3">Terça</option>
+                    <option value="4">Quarta</option>
+                    <option value="5">Quinta</option>
+                    <option value="6">Sexta</option>
+                    <option value="7">Sábado</option>
+                </select>
+                <button style="background-color: green; color: white;" id="saveDay">Salvar</button>
+                <button style="background-color: red; color: white; margin-left: 5px;" id="clear">Limpar</button>
+            </div>
+            <div class="actionsDay">
+                <ul style="color: white;">
+                    <li style="display: none;" id="day1">
+                        <span>Domingo</span>
+                        <div><button class="visualizarPdf">Visualizar</button><button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                    <li style="display: none;" id="day2">
+                        <span>Segunda</span>
+                        <div><button class="visualizarPdf">Visualizar</button> <button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                    <li style="display: none;" id="day3">
+                        <span>Terça </span>
+                        <div><button class="visualizarPdf">Visualizar</button> <button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                    <li style="display: none;" id="day4"><span>Quarta </span>
+                        <div><button class="visualizarPdf">Visualizar</button> <button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                    <li style="display: none;" id="day5"><span>Quinta </span>
+                        <div><button class="visualizarPdf">Visualizar</button> <button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                    <li style="display: none;" id="day6"><span>Sexta </span>
+                        <div><button class="visualizarPdf">Visualizar</button> <button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                    <li style="display: none;" id="day7"><span>Sábado </span>
+                        <div><button class="visualizarPdf">Visualizar</button> <button
+                                class="imprimirPdf">Imprimir</button> </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="atividades">
+            <h4>Criar nova atividade</h4>
+            <div class="addAtividadeStyle">
+                <input type="text" name="activity" id="activity" placeholder="Atividade">
+                <button id="salvarAtividade">Salvar</button>
+            </div>
+
+            <ul class="listarAtividades">
+
+            </ul>
+        </div>
+    </div>
+
+    <script src="./src/js/jquery-3.6.0.min.js"></script>
+    <script src="./src/js/index.js"></script>
+</body>
+
+</html>
