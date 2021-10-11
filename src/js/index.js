@@ -172,7 +172,9 @@ function createPDF({ print, getDay }) {
     let date = new Date()
     const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()];
     mywindow.document.write(`<html><head><title>Atividades - ${getDay} - Criado em ${day}/${month}/${year}/</title>`);
-    mywindow.document.write('</head><body style="width: 100%; height: auto; display:flex; flex-basis: auto; flex-direction:column; top: 0; align-items: start; justify-content: top;  text-transform: uppercase; margin: 0; padding: 0;">');
+    mywindow.document.write(`</head><body style="width: 100%; height: auto; display:flex; flex-basis: auto; flex-direction:column; 
+                                top: 0; align-items: start; justify-content: top;  text-transform: uppercase; 
+                                margin: 0; padding: 0; margin-left: 5px; margin-top: 5px;">`);
     mywindow.document.write(`<div style="width: 21cm; display: flex; flex-directions: row; align-items: start; justify-content: start; margin-left: 1px; margin-top: 1px;">`);
     mywindow.document.write(modelo);
     mywindow.document.write('</div>')
