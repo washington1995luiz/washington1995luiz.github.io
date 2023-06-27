@@ -6,10 +6,12 @@ let activitiesListView = document.querySelector('.listarAtividades')
 let employeeListViewBody = document.querySelector(".listaFuncionarios")
 let createNewActivityButton = document.getElementById('salvarAtividade')
 
+/*
 if (localStorage.getItem('activities') == undefined) {
     activities.push('Selecionar')
     localStorage.setItem('activities', JSON.stringify(activities))
 }
+*/
 
 
 function popEmployees() {
@@ -41,9 +43,14 @@ function createNewEmployee() {
     if (employeeName === '' || employeeName === undefined || employeeName === ' ') return alert('Digite o nome do funcionário para salvar!!')
     popEmployees()
     popActivities()
-    employees.push(employeeName)
-    localStorage.setItem("employees", JSON.stringify(employees))
-    let i = employees.length - 1
+    let newArray = []
+    newArray.push(employeeName)
+    //employees.push(employeeName)
+    for(let i = 0; i < employees.length; i++){
+        newArray.push(employees[i])
+    }
+    localStorage.setItem("employees", JSON.stringify(newArray))
+    /*let i = employees.length - 1
     employeeListViewBody.innerHTML += `<li><span>${employees[i]} </span>
         <div style="display: flex;">
         <select class="selecionar" name="selecionar" id="selecionar"> 
@@ -63,24 +70,31 @@ function createNewEmployee() {
         </div>
         </li> `
     document.getElementsByName('name')[0].value = ''
+    *//
+    getAllEmployees()
 }
 
 function getAllEmployees() {
     popEmployees()
     popActivities()
+    let newArray = []
+    newArray.push("Selecionar")
+    for(let i = 0; i < activities.length; i++){
+        newArray.push(activities[i])
+    }
     employeeListViewBody.innerHTML = ''
     for (let i = 0; i < employees.length; i++) {
 
         employeeListViewBody.innerHTML += `<li><span>${employees[i]} </span>
         <div style="display: flex;">
         <select class="selecionar" name="selecionar" id="selecionar"> 
-        ${activities.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        ${newArray.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
         </select>
         <select style="margin-left: 5px;" class="selecionar1" name="selecionar1" id="selecionar1"> 
-        ${activities.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        ${newArray.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
         </select>
         <select style="margin-left: 5px;" class="selecionar2" name="selecionar2" id="selecionar2"> 
-        ${activities.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        ${newArray.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
         </select>
         <div class="folgaCheckbox">
         <input index="${i}" onclick="folgaCheckBox(${i})" class="folga" type="checkbox" name="folga" id="folga">
@@ -99,7 +113,7 @@ function createNewActivity() {
     activities.push(activityText)
     localStorage.setItem("activities", JSON.stringify(activities))
     const index = activities.length - 1
-    activitiesListView.innerHTML += `<li><span>${activities[index]}</span>  <button onclick="deleteActivity(${index})" index="${index}">Excluir</button></li> `
+    activitiesListView.innerHTML += `<li><span>${activities[index]}</span>  <button id="activity_${index}" onclick="deleteActivity(${index})" index="${index}">Excluir</button></li> `
     document.getElementsByName('activity')[0].value = ''
 
     getAllEmployees()
@@ -275,21 +289,52 @@ function folgaCheckBox(index) {
 }
 
 function deleteEmployee(index) {
-    employees.splice(index, 1)
-
-    if (employees[0] === undefined) {
+    //employees.splice(index, 1)
+    let newArray = [];
+    if(employees.length == 1){
         employees = []
         localStorage.removeItem('employees')
-    } else {
-        localStorage.setItem("employees", JSON.stringify(employees))
-    }
+        getAllEmployees();
+        return
 
-    document.querySelectorAll('.listaFuncionarios > li')[index].remove()
+    }
+    for(let i = 0; i < employees.length; i++){
+        if(i !== index){
+            newArray.push(employees[i])
+        }
+    }
+   /* if (employees[0] === undefined) {
+        employees = []
+        localStorage.removeItem('employees')
+    } else {*/
+        localStorage.setItem("employees", JSON.stringify(newArray))
+    //}
+    getAllEmployees()
+
+    //document.querySelectorAll('.listaFuncionarios > li')[index].remove()
 }
 function deleteActivity(index) {
 
 
-    activities.splice(index, 1)
+    //activities.splice(index, 1)
+
+    let newArray = []
+    if(activities.length == 1){
+        activities = []
+        localStorage.removeItem('activities')
+        getActivities();
+        return
+    }
+    for(let i = 0; i < activities.length; i++){
+        if(i !== index){
+            newArray.push(activities[i])
+        }
+    }
+    localStorage.setItem("activities", JSON.stringify(newArray))
+    getActivities();
+
+
+    /*
     if (activities[0] === undefined) {
         activities = []
         localStorage.removeItem('activities')
@@ -297,6 +342,7 @@ function deleteActivity(index) {
         localStorage.setItem("activities", JSON.stringify(activities))
     }
     document.querySelectorAll('.listarAtividades > li')[index - 1].remove()
+    */
 }
 
 document.querySelector("#name").addEventListener("keyup", event => {
