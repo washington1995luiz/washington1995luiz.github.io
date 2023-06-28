@@ -134,7 +134,7 @@
                     <td></td>
                     <td></td>
                     <td><button id="deleteFunc_${i}" onclick="deleteEmployeer({id:${i}})">Excluir</button></td>
-                    <td><button id="add_${i}" onclick="addFuncToHours({name:'${listFunc[i].name}', cargo: '${listFunc[i].cargo}', id: ${i}})">Add</button></td>
+                    <td><button id="add_${i}" onclick="addFuncToHours({name:'${listFunc[i].name}', cargo: '${listFunc[i].cargo}', id: ${i}})">Adicionar</button></td>
                 </tr>
         `
             }
@@ -184,7 +184,7 @@
                 for (let i = 0; i < listHoursDemais.length; i++) {
                     for (let b = 0; b < listHoursDemais[i].people.length; b++) {
                         if (listHoursDemais[i].people[b].name == name && listHoursDemais[i].people[b].cargo == cargo) {
-                            return alert(`${cargo} ${name} já está na lista!\nEstá de ${listHoursDemais[i].selected}`)
+                            return alert(`${cargo} ${name} já está na lista!\nStatus: ${listHoursDemais[i].selected}`)
                         }
                     }
                 }
@@ -233,6 +233,7 @@
                     }
 
                 }
+                localStorage.setItem("faltas", JSON.stringify(listHoursDemais))
                 showTable2()
 
                 return
@@ -482,7 +483,7 @@
         })
 
         let compartilhar = document.getElementById("compartilhar")
-        compartilhar.addEventListener("click", (event) => {
+        compartilhar.addEventListener("click", async (event) => {
             let texto = 'Escala\n\n'
             if (listHours.length > 0) {
                 for (let i = 0; i < listHours.length; i++) {
@@ -511,7 +512,7 @@
                 }
             }
 
-            navigator.clipboard.writeText(texto) 
+            await navigator.clipboard.writeText(texto) 
             alert('Escala copiada para área de transferência')
         })
     </script>
