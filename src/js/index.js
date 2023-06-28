@@ -6,6 +6,16 @@ let activitiesListView = document.querySelector('.listarAtividades')
 let employeeListViewBody = document.querySelector(".listaFuncionarios")
 let createNewActivityButton = document.getElementById('salvarAtividade')
 
+<<<<<<< HEAD
+=======
+/*
+if (localStorage.getItem('activities') == undefined) {
+    activities.push('Selecionar')
+    localStorage.setItem('activities', JSON.stringify(activities))
+}
+*/
+
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
 
 function popEmployees() {
     if (localStorage.getItem('employees')) {
@@ -38,6 +48,7 @@ function createNewEmployee() {
     popActivities()
     let newArray = []
     newArray.push(employeeName)
+<<<<<<< HEAD
     for (let i = 0; i < employees.length; i++) {
         newArray.push(employees[i])
     }
@@ -68,6 +79,35 @@ function hiddenActivitiesSelected({ index, position }) {
             }
         }
     }
+=======
+    //employees.push(employeeName)
+    for(let i = 0; i < employees.length; i++){
+        newArray.push(employees[i])
+    }
+    localStorage.setItem("employees", JSON.stringify(newArray))
+    /*let i = employees.length - 1
+    employeeListViewBody.innerHTML += `<li><span>${employees[i]} </span>
+        <div style="display: flex;">
+        <select class="selecionar" name="selecionar" id="selecionar"> 
+        ${activities.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        </select>
+        <select style="margin-left: 5px;" class="selecionar1" name="selecionar1" id="selecionar1"> 
+            ${activities.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        </select>
+        <select style="margin-left: 5px;" class="selecionar2" name="selecionar2" id="selecionar2"> 
+            ${activities.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        </select>
+        <div class="folgaCheckbox">
+        <input index="${i}" onclick="folgaCheckBox(${i})" class="folga" type="checkbox" name="folga" id="folga">
+            <label for="folga">Folga</label>
+            </div>
+        <button onclick="deleteEmployee(${i})" index="${i}">Excluir</button>
+        </div>
+        </li> `
+    document.getElementsByName('name')[0].value = ''
+    *//
+    getAllEmployees()
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
 }
 
 function getAllEmployees() {
@@ -75,16 +115,23 @@ function getAllEmployees() {
     popActivities()
     let newArray = []
     newArray.push("Selecionar")
+<<<<<<< HEAD
     for (let i = 0; i < activities.length; i++) {
         newArray.push(activities[i])
     }
 
+=======
+    for(let i = 0; i < activities.length; i++){
+        newArray.push(activities[i])
+    }
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
     employeeListViewBody.innerHTML = ''
     for (let i = 0; i < employees.length; i++) {
 
         employeeListViewBody.innerHTML += `
         <li><span style="text-transform: capitalize;">${employees[i]} </span>
         <div style="display: flex;">
+<<<<<<< HEAD
             <select onchange="hiddenActivitiesSelected({index: ${i}, position: 0})" class="selecionar" name="selecionar_${i}_0" id="selecionar_${i}_0"> 
                 ${setActivitiesToEmployees()}
             </select>
@@ -99,6 +146,20 @@ function getAllEmployees() {
                 <label for="folga">Folga</label>
             </div>
             <button onclick="deleteEmployee(${i})" index="${i}">Excluir</button>
+=======
+        <select class="selecionar" name="selecionar" id="selecionar"> 
+        ${newArray.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        </select>
+        <select style="margin-left: 5px;" class="selecionar1" name="selecionar1" id="selecionar1"> 
+        ${newArray.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        </select>
+        <select style="margin-left: 5px;" class="selecionar2" name="selecionar2" id="selecionar2"> 
+        ${newArray.map((element, index) => { return '<option value=' + `${index}` + '>' + element + '</option>' })}
+        </select>
+        <div class="folgaCheckbox">
+        <input index="${i}" onclick="folgaCheckBox(${i})" class="folga" type="checkbox" name="folga" id="folga">
+        <label for="folga">Folga</label>
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
         </div>
         </li> `;
 
@@ -122,6 +183,11 @@ function createNewActivity() {
     popActivities()
     activities.push(activityText)
     localStorage.setItem("activities", JSON.stringify(activities))
+<<<<<<< HEAD
+=======
+    const index = activities.length - 1
+    activitiesListView.innerHTML += `<li><span>${activities[index]}</span>  <button id="activity_${index}" onclick="deleteActivity(${index})" index="${index}">Excluir</button></li> `
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
     document.getElementsByName('activity')[0].value = ''
     getActivities()
     getAllEmployees()
@@ -297,12 +363,19 @@ function folgaCheckBox(index) {
 }
 
 function deleteEmployee(index) {
+<<<<<<< HEAD
     let newArray = [];
     if (employees.length == 1) {
+=======
+    //employees.splice(index, 1)
+    let newArray = [];
+    if(employees.length == 1){
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
         employees = []
         localStorage.removeItem('employees')
         getAllEmployees();
         return
+<<<<<<< HEAD
 
     }
     for (let i = 0; i < employees.length; i++) {
@@ -317,11 +390,54 @@ function deleteEmployee(index) {
 function deleteActivity(index) {
     let newArray = []
     if (activities.length == 1) {
+=======
+
+    }
+    for(let i = 0; i < employees.length; i++){
+        if(i !== index){
+            newArray.push(employees[i])
+        }
+    }
+   /* if (employees[0] === undefined) {
+        employees = []
+        localStorage.removeItem('employees')
+    } else {*/
+        localStorage.setItem("employees", JSON.stringify(newArray))
+    //}
+    getAllEmployees()
+
+    //document.querySelectorAll('.listaFuncionarios > li')[index].remove()
+}
+function deleteActivity(index) {
+
+
+    //activities.splice(index, 1)
+
+    let newArray = []
+    if(activities.length == 1){
         activities = []
         localStorage.removeItem('activities')
         getActivities();
         return
     }
+    for(let i = 0; i < activities.length; i++){
+        if(i !== index){
+            newArray.push(activities[i])
+        }
+    }
+    localStorage.setItem("activities", JSON.stringify(newArray))
+    getActivities();
+
+
+    /*
+    if (activities[0] === undefined) {
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
+        activities = []
+        localStorage.removeItem('activities')
+        getActivities();
+        return
+    }
+<<<<<<< HEAD
     for (let i = 0; i < activities.length; i++) {
         if (i !== index) {
             newArray.push(activities[i])
@@ -331,6 +447,10 @@ function deleteActivity(index) {
     getActivities();
     getAllEmployees();
 
+=======
+    document.querySelectorAll('.listarAtividades > li')[index - 1].remove()
+    */
+>>>>>>> 8a01168c2b6a9f34b35693401fbdc7f59d383b20
 }
 
 document.querySelector("#name").addEventListener("keyup", event => {
