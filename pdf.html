@@ -4,7 +4,7 @@
         <link href="src/index.css">
     </head>    
     <body>
-        <div class="container">
+        <div id="container" class="container">
             <h1>Enviar PDF para Whatsapp</h1>
             <form id='form'>
                 <div class="input-group">
@@ -17,6 +17,11 @@
                 </div>
                 <button class="submit-btn" type='submit'>Enviar</button>
             </form>
+        </div>
+        <div id="connect" class="connect" style="display: none;">
+            <h3>Conectar ao Whatsapp</h3>
+            <button id="btn">QR CODE</button>
+            <div id="qrdiv" style="width: 250px; height: 250px;"></div>
         </div>
         <script src='src/index.js'></script>
     </body>
