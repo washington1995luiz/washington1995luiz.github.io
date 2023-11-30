@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Enviar PDF</title>
+        <link href="src/index.css">
+    </head>    
+    <body>
+        <div class="container">
+            <h1>Enviar PDF para Whatsapp</h1>
+            <form id='form'>
+                <div class="input-group">
+                    <label for='name'>Digite o whatsapp</label>
+                    <input name='name' id='name' placeholder="Digite o número" />
+                </div>
+                <div class="input-group">
+                    <label for='files'>Selecionar PDF</label>
+                    <input id='files' type="file" accept=".pdf" multiple>
+                </div>
+                <button class="submit-btn" type='submit'>Enviar</button>
+            </form>
+        </div>
+        <script src='src/index.js'></script>
+    </body>
+</html>
