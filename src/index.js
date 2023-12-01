@@ -16,7 +16,13 @@ function submitForm(e) {
                 method: 'POST',
                 body: formData
         })
-                .then((res) => alert('Mensagem Enviada'))
+        .then(async (res) => {
+                let { error, message } = await res.json()
+                if(error){
+                        return alert(error)
+                }
+                alert(message)
+        })
                 .catch((err) => ("Error occured", err));
 }
 
