@@ -1,28 +1,28 @@
 <html>
     <head>
         <title>Enviar PDF</title>
-        <link href="src/index.css">
     </head>    
     <body>
         <div id="container" class="container">
-            <h1>Enviar arquivo para Whatsapp</h1>
+            <h1>Enviar PDF para Whatsapp</h1>
             <form id='form'>
                 <div class="input-group">
-                    <label for='name'>Digite o número</label>
+                    <label for='name'>Digite o whatsapp</label>
                     <input name='name' id='name' placeholder="Digite o número" />
                 </div>
                 <div class="input-group">
-                    <label for='files'>Selecionar Arquivo</label>
+                    <label for='files'>Selecionar PDF</label>
                     <input id='files' type="file" multiple>
                 </div>
-                <button class="submit-btn" type='submit'>Enviar</button>
+                <button id="btn-send" class="submit-btn" type='submit'>Enviar</button>
             </form>
         </div>
         <div id="connect" class="connect" style="display: none;">
-            <h3>Conectar ao Whatsapp</h3>
-            <button id="btn">QR CODE</button>
-            <div id="qrdiv" style="width: 250px; height: 250px;"></div>
+            <h1>Conectar ao Whatsapp</h1>
+            <button id="btn">Gerar QR CODE</button>
+            <div id="qrdiv"></div>
         </div>
+        <link rel="stylesheet" href="src/index.css">
         <script src='src/index.js'></script>
     </body>
 </html>

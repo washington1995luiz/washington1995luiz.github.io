@@ -8,6 +8,7 @@ body {
 .container {
     max-width: 500px;
     margin: 60px auto;
+    display: none;
 }
 .container h1 {
     text-align: center;
@@ -39,3 +40,54 @@ form input {
     padding: 20px;
     text-align: center;
 }
+
+.connect {
+    max-width: 500px;
+    margin: 60px auto;
+    color: white;
+    display: none;
+}
+.connect h1 {
+    text-align: center;
+    color: white;
+}
+#qrdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    margin: 10px auto;
+}
+#qrdiv p{
+    text-align: center;
+    color: white;
+}
+
+svg {
+    max-width: 250px;
+    margin: 10px auto;
+    background: white;
+}
+
+
+#btn {
+    width: 100%;
+    border: none;
+    background: rgb(37, 83, 3);
+    font-size: 18px;
+    color: white;
+    border-radius: 3px;
+    padding: 20px;
+    text-align: center;
+}
+#refresh {
+    width: 100%;
+    border: none;
+    background: rgb(83, 22, 3);
+    font-size: 18px;
+    color: white;
+    border-radius: 3px;
+    padding: 20px;
+    text-align: center;
+}
+
