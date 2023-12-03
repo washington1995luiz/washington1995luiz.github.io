@@ -1,14 +1,17 @@
 // script.js
 const form = document.getElementById("form");
+const btn = document.getElementById('btn')
+const divContainer = document.getElementById('container');
+const divConnect = document.getElementById("connect");
+
+form.addEventListener("submit", submitForm);
 const server = "https://whatsapp-u6dl.onrender.com";
+/*
 const socket = new WebSocket(`wss://whatsapp-u6dl.onrender.com:8081`);
 
 let animationInitialized = false;
 let countAnimation = 0;
-const btn = document.getElementById('btn')
-const divContainer = document.getElementById('container');
-const divConnect = document.getElementById("connect");
-form.addEventListener("submit", submitForm);
+
 socket.addEventListener('message', event => {
         console.log(event.data)
         if(event.data.toString() === "connecting" && animationInitialized == false) 
@@ -52,7 +55,7 @@ function animationConnecting(stop){
                 }, 3000)
         }
         
-}
+}*/
 
 
 function submitForm(e) {
