@@ -2,6 +2,7 @@
 const form = document.getElementById("form");
 const server = "https://whatsapp-u6dl.onrender.com";
 const socket = new WebSocket(`ws://${server}:8081`);
+
 let animationInitialized = false;
 let countAnimation = 0;
 const btn = document.getElementById('btn')
