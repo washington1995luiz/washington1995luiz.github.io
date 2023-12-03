@@ -1,7 +1,7 @@
 // script.js
 const form = document.getElementById("form");
 const server = "https://whatsapp-u6dl.onrender.com";
-const socket = new WebSocket(`ws://${server}:8081`);
+const socket = new WebSocket(`ws://whatsapp-u6dl.onrender.com:8081`);
 
 let animationInitialized = false;
 let countAnimation = 0;
