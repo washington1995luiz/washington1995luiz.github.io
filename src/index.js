@@ -1,10 +1,61 @@
 // script.js
 const form = document.getElementById("form");
-
+const server = "https://whatsapp-u6dl.onrender.com";
+const socket = new WebSocket('ws://localhost:8081');
+let animationInitialized = false;
+let countAnimation = 0;
+const btn = document.getElementById('btn')
+const divContainer = document.getElementById('container');
+const divConnect = document.getElementById("connect");
 form.addEventListener("submit", submitForm);
+socket.addEventListener('message', event => {
+        console.log(event.data)
+        if(event.data.toString() === "connecting" && animationInitialized == false) 
+                animationConnecting(false) 
+        if(event.data.toString() === "ready")
+                animationConnecting(true)
+
+})
+function animationConnecting(stop){ 
+        animationInitialized = true;
+        let animation = setInterval(() => {
+                if(countAnimation == 0){
+                        document.getElementById('qrdiv').innerHTML = '<p>Conectando</p>'
+                        countAnimation = 1;
+                        return
+                }
+                if(countAnimation == 1){
+                        document.getElementById('qrdiv').innerHTML = '<p>Conectando.</p>'
+                        countAnimation = 2;
+                        return
+                }
+                if(countAnimation == 2){
+                        document.getElementById('qrdiv').innerHTML = '<p>Conectando..</p>'
+                        countAnimation = 3;
+                        return
+                }
+                if(countAnimation == 3){
+                        document.getElementById('qrdiv').innerHTML = '<p>Conectando...</p>'
+                        countAnimation = 0;
+                        return
+                }
+                
+        }, 500)
+         if(stop){
+                clearInterval(animation)
+                document.getElementById('qrdiv').style.display = "none";
+                document.getElementById('ready').style.display = "flex";
+                document.getElementById('ready').innerHTML = '<p>Conectado!</p>'
+                setTimeout(()=>{
+                        connected()
+                }, 3000)
+        }
+        
+}
+
 
 function submitForm(e) {
-        e.preventDefault();
+        e.preventDefault()
         const name = document.getElementById("name");
         const files = document.getElementById("files");
         const formData = new FormData();
@@ -12,25 +63,24 @@ function submitForm(e) {
         for (let i = 0; i < files.files.length; i++) {
                 formData.append("files", files.files[i]);
         }
-        fetch("https://whatsapp-u6dl.onrender.com/sendMessage", {
+        fetch(`${server}/sendMessage`, {
+
                 method: 'POST',
                 body: formData
         })
-        .then(async (res) => {
-                let { error, message } = await res.json()
-                if(error){
-                        return alert(error)
-                }
-                alert(message)
-        })
+                .then(async (res) => {
+                        let { error, message } = await res.json()
+                        if(error){
+                                return alert(error)
+                        }
+                        alert(message)
+                })
                 .catch((err) => ("Error occured", err));
 }
 
-const btn = document.getElementById('btn')
-const divContainer = document.getElementById('container');
-const divConnect = document.getElementById("connect");
+
 async function connected() {
-        let response = await fetch("https://whatsapp-u6dl.onrender.com/connected")
+        let response = await fetch(`${server}/connected`)
         let status = await response.json()
         console.log(status.response)
         if (status.response == false) {
@@ -41,19 +91,14 @@ async function connected() {
                 divContainer.style.display = 'block';
         }
 }
-connected()
-btn.addEventListener('click', async (event) => {
+
+
+
+btn.addEventListener('click', async () => {
         document.getElementById('qrdiv').innerHTML = "Gerando QR CODE, aguarde!"
-        let response = await fetch("https://whatsapp-u6dl.onrender.com/qrcode");
+        let response = await fetch(`${server}/qrcode`);
         let svg = await response.json();
         document.getElementById('qrdiv').innerHTML = svg.response
-        document.getElementById('qrdiv').innerHTML += '<p>Já leu o qr code?</p><button id="refresh">Recarregar Página</button>'
-        document.getElementById('refresh').addEventListener('click', () => {
-                document.getElementById('qrdiv').innerHTML = 'Recarrengando página, aguarde!!'
-                setTimeout(() => {
-                  window.location.reload()      
-                }, 5000)
-                
-        })
-
 })
+
+connected()
