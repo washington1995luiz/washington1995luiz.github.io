@@ -6,8 +6,13 @@ const divConnect = document.getElementById("connect");
 
 form.addEventListener("submit", submitForm);
 const server = "https://whatsapp-u6dl.onrender.com";
+<<<<<<< HEAD
 
 const socket = new WebSocket(`wss://whatsapp-u6dl.onrender.com`);
+=======
+/*
+const socket = new WebSocket(`wss://whatsapp-u6dl.onrender.com:8081`);
+>>>>>>> adf12de25eb5dde775fa2ae213232469b159b1a3
 
 let animationInitialized = false;
 let countAnimation = 0;
@@ -55,7 +60,7 @@ function animationConnecting(stop){
                 }, 3000)
         }
         
-}
+}*/
 
 
 function submitForm(e) {
