@@ -13,48 +13,51 @@ let animationInitialized = false;
 let countAnimation = 0;
 
 socket.addEventListener('message', event => {
-        console.log(event.data)
-        if(event.data.toString() === "connecting" && animationInitialized == false) 
-                animationConnecting(false) 
-        if(event.data.toString() === "ready")
+        if (!event.data.toString().includes("svg"))
+                console.log(event.data)
+        if (event.data.toString() === "connecting" && animationInitialized == false)
+                animationConnecting(false)
+        if (event.data.toString() === "ready")
                 animationConnecting(true)
+        if (event.data.toString().includes("svg"))
+                document.getElementById('qrdiv').innerHTML = event.data
 
 })
-function animationConnecting(stop){ 
+function animationConnecting(stop) {
         animationInitialized = true;
         let animation = setInterval(() => {
-                if(countAnimation == 0){
+                if (countAnimation == 0) {
                         document.getElementById('qrdiv').innerHTML = '<p>Conectando</p>'
                         countAnimation = 1;
                         return
                 }
-                if(countAnimation == 1){
+                if (countAnimation == 1) {
                         document.getElementById('qrdiv').innerHTML = '<p>Conectando.</p>'
                         countAnimation = 2;
                         return
                 }
-                if(countAnimation == 2){
+                if (countAnimation == 2) {
                         document.getElementById('qrdiv').innerHTML = '<p>Conectando..</p>'
                         countAnimation = 3;
                         return
                 }
-                if(countAnimation == 3){
+                if (countAnimation == 3) {
                         document.getElementById('qrdiv').innerHTML = '<p>Conectando...</p>'
                         countAnimation = 0;
                         return
                 }
-                
+
         }, 500)
-         if(stop){
+        if (stop) {
                 clearInterval(animation)
                 document.getElementById('qrdiv').style.display = "none";
                 document.getElementById('ready').style.display = "flex";
                 document.getElementById('ready').innerHTML = '<p>Conectado!</p>'
-                setTimeout(()=>{
+                setTimeout(() => {
                         connected()
                 }, 3000)
         }
-        
+
 }
 
 
@@ -74,7 +77,7 @@ function submitForm(e) {
         })
                 .then(async (res) => {
                         let { error, message } = await res.json()
-                        if(error){
+                        if (error) {
                                 return alert(error)
                         }
                         alert(message)
@@ -95,14 +98,4 @@ async function connected() {
                 divContainer.style.display = 'block';
         }
 }
-
-
-
-btn.addEventListener('click', async () => {
-        document.getElementById('qrdiv').innerHTML = "Gerando QR CODE, aguarde!"
-        let response = await fetch(`${server}/qrcode`);
-        let svg = await response.json();
-        document.getElementById('qrdiv').innerHTML = svg.response
-})
-
 connected()
