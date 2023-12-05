@@ -35,7 +35,7 @@ function popFuncionarios() {
 
 
 function createNewEmployee() {
-    let employeeName = document.getElementsByName('horario')[0].value
+    let employeeName = document.getElementById('horario').value
     if (employeeName === '' || employeeName === undefined || employeeName === ' ') return alert('Digite o horário para salvar!!')
     popHorarios()
     popFuncionarios()
@@ -364,7 +364,8 @@ function copyTextToSend(){
             }
         }
     }
-    console.log(textToCopy)
+    navigator.clipboard.writeText(textToCopy);
+    alert(`Escala de ${selectDay} copiada!`);
 }
 $('#clear').click(() => { ListExist({ clear: true }) })
 $('#saveDay').click(saveDay)
