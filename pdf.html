@@ -12,20 +12,25 @@
 </head>
 
 <body>
-    <div id="container" class="container">
-        <h1>Enviar arquivo para Whatsapp</h1>
-        <form id='form'>
-            <div class="input-group">
-                <label for='name'>Digite o whatsapp</label>
-                <input name='name' id='name' placeholder="Digite o número" />
-            </div>
-            <div class="input-group">
-                <label for='files'>Selecionar Arquivo</label>
-                <input id='files' type="file" multiple>
-            </div>
-            <button id="btn-send" class="submit-btn" type='submit'>Enviar</button>
-        </form>
+    <div id="container" class="container" >
+            <h1>Enviar arquivo para Whatsapp</h1>
+            <form id='form'>
+                <div class="input-group">
+                    <label for='number'>Digite o whatsapp</label>
+                    <input name='number' id='number' placeholder="Digite o número" />
+                </div>
+                <div class="input-group">
+                    <label for='files'>Selecionar Arquivo</label>
+                    <input id='files' type="file" multiple>
+                </div>
+                <div class="input-text">
+                    <label for='files'>Texto</label>
+                    <textarea id='text' type="text" placeholder="Digite ou cole um texto"></textarea>
+                </div>
+                <button id="btn-send" class="submit-btn" type='submit'>Enviar</button>
+            </form>
     </div>
+
     <div id="connect" class="connect" style="display: none;">
         <h1>Conectar ao Whatsapp</h1>
         <div id="qrdiv"></div>

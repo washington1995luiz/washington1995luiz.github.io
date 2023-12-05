@@ -1,32 +1,32 @@
-let employees = []
-let activities = []
+let horarios = []
+let funcionarios = []
 let pessoasFolgando = []
 
 let createNewEmployeeButton = document.getElementById("save")
-let activitiesListView = document.querySelector('.listarAtividades')
+let funcionariosListView = document.querySelector('.listarAtividades')
 let employeeListViewBody = document.querySelector(".listaFuncionarios")
 let createNewActivityButton = document.getElementById('salvarAtividade')
 
 
-function popEmployees() {
+function popHorarios() {
     if (localStorage.getItem('horario')) {
-        employees = []
+        horarios = []
 
         let arrayList = JSON.parse(localStorage.getItem('horario').toString())
         let ajusteArray = String(arrayList).split(',')
         for (let i = 0; i < ajusteArray.length; i++) {
-            employees.push(ajusteArray[i])
+            horarios.push(ajusteArray[i])
         }
  
     }
 }
-function popActivities() {
-    if (localStorage.getItem('activities')) {
-        activities = []
-        let arrayList = JSON.parse(localStorage.getItem('activities').toString())
+function popFuncionarios() {
+    if (localStorage.getItem('funcionarios')) {
+        funcionarios = []
+        let arrayList = JSON.parse(localStorage.getItem('funcionarios').toString())
         let ajusteArray = String(arrayList).split(',')
         for (let i = 0; i < ajusteArray.length; i++) {
-            activities.push(ajusteArray[i])
+            funcionarios.push(ajusteArray[i])
         }
 
     }
@@ -37,49 +37,49 @@ function popActivities() {
 function createNewEmployee() {
     let employeeName = document.getElementsByName('horario')[0].value
     if (employeeName === '' || employeeName === undefined || employeeName === ' ') return alert('Digite o horário para salvar!!')
-    popEmployees()
-    popActivities()
+    popHorarios()
+    popFuncionarios()
     let newArray = []
     let adicionado = false;
     //newArray.push(employeeName)
-    if (employees.length == 0) {
+    if (horarios.length == 0) {
         newArray.push(employeeName)
-    } else if (employeeName.toString() > employees[employees.length - 1].toString()) {
-        employees.forEach(e => newArray.push(e))
+    } else if (employeeName.toString() > horarios[horarios.length - 1].toString()) {
+        horarios.forEach(e => newArray.push(e))
         newArray.push(employeeName)
     }
     else {
 
-        for (let i = 0; i < employees.length; i++) {
+        for (let i = 0; i < horarios.length; i++) {
             console.log({ adicionado })
 
-            if (employeeName.toString() == employees[i].toString()) {
+            if (employeeName.toString() == horarios[i].toString()) {
                 alert("Horário já existe")
                 return
             }
 
-            if (employeeName.toString() < employees[i].toString() && adicionado == false) {
+            if (employeeName.toString() < horarios[i].toString() && adicionado == false) {
                 newArray.push(employeeName)
-                newArray.push(employees[i])
+                newArray.push(horarios[i])
                 adicionado = true
-            } else if (employeeName.toString() > employees[i].toString() && employeeName.toString() > employees[i + 1].toString()) {
-                newArray.push(employees[i])
-            } else if (employeeName.toString() > employees[i].toString() && employeeName.toString() < employees[i + 1].toString()) {
-                newArray.push(employees[i])
+            } else if (employeeName.toString() > horarios[i].toString() && employeeName.toString() > horarios[i + 1].toString()) {
+                newArray.push(horarios[i])
+            } else if (employeeName.toString() > horarios[i].toString() && employeeName.toString() < horarios[i + 1].toString()) {
+                newArray.push(horarios[i])
                 newArray.push(employeeName)
             } else {
-                newArray.push(employees[i])
+                newArray.push(horarios[i])
             }
 
         }
     }
     localStorage.setItem("horario", JSON.stringify(newArray))
-    //localStorage.setItem("employees", JSON.stringify(newArray))
+    //localStorage.setItem("horarios", JSON.stringify(newArray))
     document.getElementsByName('horario')[0].value = ''
-    getAllEmployees()
+    getAllhorarios()
 }
 let pessoasSelecionada = []
-function hiddenActivitiesSelected() {
+function hiddenfuncionariosSelected() {
     let select = document.querySelectorAll(".select > option")
     let pessoasSelecionadas = []
     for (let i = 0; i < select.length; i++) {
@@ -110,18 +110,18 @@ function hiddenActivitiesSelected() {
 }
 
 
-function getAllEmployees() {
-    popEmployees()
-    popActivities()
+function getAllhorarios() {
+    popHorarios()
+    popFuncionarios()
     let newArray = []
     newArray.push("Selecionar")
-    for (let i = 0; i < activities.length; i++) {
+    for (let i = 0; i < funcionarios.length; i++) {
         if (pessoasFolgando.length > 0) {
-            if (comparar(activities[i]) == false) {
-                newArray.push(activities[i])
+            if (comparar(funcionarios[i]) == false) {
+                newArray.push(funcionarios[i])
             }
         } else {
-            newArray.push(activities[i])
+            newArray.push(funcionarios[i])
         }
     }
     function comparar(texto) {
@@ -133,26 +133,26 @@ function getAllEmployees() {
     }
 
     employeeListViewBody.innerHTML = ''
-    let parse = employees
+    let parse = horarios
     for (let i = 0; i < parse.length; i++) {
 
         employeeListViewBody.innerHTML += `
         <li><span style="text-transform: capitalize;">${parse[i]} </span>
         <div style="display: flex;">
-            <select onchange="hiddenActivitiesSelected({index: ${i}, position: 0})" class="selecionar select" name="selecionar_${i}_0" id="selecionar_${i}_0"> 
-                ${setActivitiesToEmployees()}
+            <select onchange="hiddenfuncionariosSelected({index: ${i}, position: 0})" class="selecionar select" name="selecionar_${i}_0" id="selecionar_${i}_0"> 
+                ${setfuncionariosTohorarios()}
             </select>
-            <select onchange="hiddenActivitiesSelected({index: ${i}, position: 1})" style="margin-left: 5px;" class="selecionar1 select" name="selecionar_${i}_1" id="selecionar_${i}_1"> 
-                ${setActivitiesToEmployees()}
+            <select onchange="hiddenfuncionariosSelected({index: ${i}, position: 1})" style="margin-left: 5px;" class="selecionar1 select" name="selecionar_${i}_1" id="selecionar_${i}_1"> 
+                ${setfuncionariosTohorarios()}
             </select>
-            <select onchange="hiddenActivitiesSelected({index: ${i}, position: 2})" style="margin-left: 5px;" class="selecionar2 select" name="selecionar_${i}_2" id="selecionar_${i}_2"> 
-                ${setActivitiesToEmployees()}
+            <select onchange="hiddenfuncionariosSelected({index: ${i}, position: 2})" style="margin-left: 5px;" class="selecionar2 select" name="selecionar_${i}_2" id="selecionar_${i}_2"> 
+                ${setfuncionariosTohorarios()}
             </select>
-            <select onchange="hiddenActivitiesSelected({index: ${i}, position: 3})" style="margin-left: 5px;" class="selecionar1 select" name="selecionar_${i}_1" id="selecionar_${i}_1"> 
-                ${setActivitiesToEmployees()}
+            <select onchange="hiddenfuncionariosSelected({index: ${i}, position: 3})" style="margin-left: 5px;" class="selecionar1 select" name="selecionar_${i}_1" id="selecionar_${i}_1"> 
+                ${setfuncionariosTohorarios()}
             </select>
-            <select onchange="hiddenActivitiesSelected({index: ${i}, position: 4})" style="margin-left: 5px;" class="selecionar2 select" name="selecionar_${i}_2" id="selecionar_${i}_2"> 
-                ${setActivitiesToEmployees()}
+            <select onchange="hiddenfuncionariosSelected({index: ${i}, position: 4})" style="margin-left: 5px;" class="selecionar2 select" name="selecionar_${i}_2" id="selecionar_${i}_2"> 
+                ${setfuncionariosTohorarios()}
             </select>
             <button style="margin-left: 5px;" onclick="deleteEmployee(${i})" index="${i}">Excluir</button>
         </div>
@@ -161,7 +161,7 @@ function getAllEmployees() {
 
 
     }
-    function setActivitiesToEmployees() {
+    function setfuncionariosTohorarios() {
         let text = ''
         for (let i = 0; i < newArray.length; i++) {
             text += `<option style="text-transform: capitalize;" value="${i}" name="${newArray[i]}">${newArray[i]}</option>`
@@ -175,25 +175,25 @@ function getAllEmployees() {
 function createNewActivity() {
     let activityText = document.getElementsByName('activity')[0].value
     if (activityText === '' || activityText === undefined || activityText === ' ') return alert('Digite o nome para salvar!!')
-    popActivities()
-    activities.push(activityText)
-    localStorage.setItem("activities", JSON.stringify(activities))
+    popFuncionarios()
+    funcionarios.push(activityText)
+    localStorage.setItem("funcionarios", JSON.stringify(funcionarios))
     document.getElementsByName('activity')[0].value = ''
-    getActivities()
-    getAllEmployees()
+    getfuncionarios()
+    getAllhorarios()
 }
 
 
-function getActivities() {
-    activitiesListView.innerHTML = ''
-    popActivities()
-    activitiesListView.innerHTML = ''
-    for (let i = 0; i < activities.length; i++) {
-        if (!activities[i].includes('Selecionar')) {
-            activitiesListView.innerHTML += `<li><span style="text-transform: uppercase;">${activities[i]}</span> <div class="folgaCheckbox">
+function getfuncionarios() {
+    funcionariosListView.innerHTML = ''
+    popFuncionarios()
+    funcionariosListView.innerHTML = ''
+    for (let i = 0; i < funcionarios.length; i++) {
+        if (!funcionarios[i].includes('Selecionar')) {
+            funcionariosListView.innerHTML += `<li><span style="text-transform: uppercase;">${funcionarios[i]}</span> <div class="folgaCheckbox">
             <input index="${i}" onclick="folgaCheckBox(${i})" class="folga" type="checkbox" name="folga" id="folga">
                 <label for="folga">Folga</label>
-            </div>  <button  onclick="deleteActivity(${i})" index="${i}">Excluir</button></li> `
+            </div>  <button  onclick="deleteFuncionario(${i})" index="${i}">Excluir</button></li> `
         }
     }
 }
@@ -204,40 +204,40 @@ function createPDF({ print, getDay }) {
     let styleTdName = `style="border-right: 1px solid black; border-top: 1px solid black;
         font-size: 15px; max-height: 75px; padding-left: 5px; width: 150px;
         word-wrap: break-word;"`
-    let styleTdActivities = `style="border-top: 1px solid black;
+    let styleTdfuncionarios = `style="border-top: 1px solid black;
         font-size: 15px; max-height: 75px; padding-left: 5px;width: 200px;
         word-wrap: break-word;"`
     let conteudoDinamico = ''
     //let folga = ''
     for (let i = 0; i < array.employee.length; i++) {
         //if (!array.employee[i].folga) {
-            let activitiesSelected = ''
-            if (array.employee[i].activitiesSelected.length == 2) {
-                activitiesSelected += `${array.employee[i].activitiesSelected[0]}
-                   </br> ${array.employee[i].activitiesSelected[1]}`
-            } else if (array.employee[i].activitiesSelected.length == 3) {
-                activitiesSelected += `${array.employee[i].activitiesSelected[0]}
-                </br> ${array.employee[i].activitiesSelected[1]}
-                </br> ${array.employee[i].activitiesSelected[2]}`
-            } else if (array.employee[i].activitiesSelected.length == 4) {
-                activitiesSelected += `${array.employee[i].activitiesSelected[0]}
-                </br> ${array.employee[i].activitiesSelected[1]}
-                </br> ${array.employee[i].activitiesSelected[2]}
-                </br> ${array.employee[i].activitiesSelected[3]}`
+            let funcionariosSelected = ''
+            if (array.employee[i].funcionariosSelected.length == 2) {
+                funcionariosSelected += `${array.employee[i].funcionariosSelected[0]}
+                   </br> ${array.employee[i].funcionariosSelected[1]}`
+            } else if (array.employee[i].funcionariosSelected.length == 3) {
+                funcionariosSelected += `${array.employee[i].funcionariosSelected[0]}
+                </br> ${array.employee[i].funcionariosSelected[1]}
+                </br> ${array.employee[i].funcionariosSelected[2]}`
+            } else if (array.employee[i].funcionariosSelected.length == 4) {
+                funcionariosSelected += `${array.employee[i].funcionariosSelected[0]}
+                </br> ${array.employee[i].funcionariosSelected[1]}
+                </br> ${array.employee[i].funcionariosSelected[2]}
+                </br> ${array.employee[i].funcionariosSelected[3]}`
             } 
-            else if (array.employee[i].activitiesSelected.length == 5) {
-                activitiesSelected += `${array.employee[i].activitiesSelected[0]}
-                </br> ${array.employee[i].activitiesSelected[1]}
-                </br> ${array.employee[i].activitiesSelected[2]}
-                </br> ${array.employee[i].activitiesSelected[3]}
-                </br> ${array.employee[i].activitiesSelected[4]}`
+            else if (array.employee[i].funcionariosSelected.length == 5) {
+                funcionariosSelected += `${array.employee[i].funcionariosSelected[0]}
+                </br> ${array.employee[i].funcionariosSelected[1]}
+                </br> ${array.employee[i].funcionariosSelected[2]}
+                </br> ${array.employee[i].funcionariosSelected[3]}
+                </br> ${array.employee[i].funcionariosSelected[4]}`
             } 
             else {
-                activitiesSelected += array.employee[i].activitiesSelected
+                funcionariosSelected += array.employee[i].funcionariosSelected
             }
             conteudoDinamico += `<tr style="margin: 15px; border: 1px solid black;">
                      <td ${styleTdName}>${array.employee[i].name}</td>
-                     <td ${styleTdActivities}>${activitiesSelected}</td>
+                     <td ${styleTdfuncionarios}>${funcionariosSelected}</td>
                      </tr>`
       //  } 
        // else {folga += `<li style="margin-right: 25px;"><span style="font-size: 15px;"> ${getFolga()}</span> </li>`//`<li style="margin-right: 25px;"><span style="font-size: 15px;"> ${array.employee[i].name}</span> </li>`}
@@ -289,66 +289,82 @@ function createPDF({ print, getDay }) {
 }
 function saveDay() {
     let array = { employee: [] }
-    let employeesActivities = document.querySelectorAll('.listaFuncionarios > li')
+    let horariosfuncionarios = document.querySelectorAll('.listaFuncionarios > li')
 
     let selectDay = $('#day > option:selected')[0].innerText
-    for (let i = 0; i < employeesActivities.length; i++) {
-        let activitiesSelected = []
+    for (let i = 0; i < horariosfuncionarios.length; i++) {
+        let funcionariosSelected = []
     
-       // if (!$(employeesActivities[i]).find('input')[0].checked) {
-            if ($(employeesActivities[i]).find('option:selected')[0].innerText !== 'Selecionar') {
-                if (activitiesSelected.length > 0) {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[0].innerText)
+       // if (!$(horariosfuncionarios[i]).find('input')[0].checked) {
+            if ($(horariosfuncionarios[i]).find('option:selected')[0].innerText !== 'Selecionar') {
+                if (funcionariosSelected.length > 0) {
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[0].innerText)
                 } else {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[0].innerText)
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[0].innerText)
                 }
             }
-            if ($(employeesActivities[i]).find('option:selected')[1].innerText !== 'Selecionar') {
-                if (activitiesSelected.length > 0) {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[1].innerText)
+            if ($(horariosfuncionarios[i]).find('option:selected')[1].innerText !== 'Selecionar') {
+                if (funcionariosSelected.length > 0) {
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[1].innerText)
                 } else {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[1].innerText)
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[1].innerText)
                 }
             }
-            if ($(employeesActivities[i]).find('option:selected')[2].innerText !== 'Selecionar') {
-                if (activitiesSelected.length > 0) {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[2].innerText)
+            if ($(horariosfuncionarios[i]).find('option:selected')[2].innerText !== 'Selecionar') {
+                if (funcionariosSelected.length > 0) {
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[2].innerText)
                 } else {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[2].innerText)
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[2].innerText)
                 }
             }
-            if ($(employeesActivities[i]).find('option:selected')[3].innerText !== 'Selecionar') {
-                if (activitiesSelected.length > 0) {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[3].innerText)
+            if ($(horariosfuncionarios[i]).find('option:selected')[3].innerText !== 'Selecionar') {
+                if (funcionariosSelected.length > 0) {
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[3].innerText)
                 } else {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[3].innerText)
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[3].innerText)
                 }
             }
-            if ($(employeesActivities[i]).find('option:selected')[4].innerText !== 'Selecionar') {
-                if (activitiesSelected.length > 0) {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[4].innerText)
+            if ($(horariosfuncionarios[i]).find('option:selected')[4].innerText !== 'Selecionar') {
+                if (funcionariosSelected.length > 0) {
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[4].innerText)
                 } else {
-                    activitiesSelected.push($(employeesActivities[i]).find('option:selected')[4].innerText)
+                    funcionariosSelected.push($(horariosfuncionarios[i]).find('option:selected')[4].innerText)
                 }
             }
        // }
             /*
-        if (activitiesSelected.length === 0 && !$(employeesActivities[i]).find('input')[0].checked) {
-            return alert(`Falta selecionar a atividade de ${$(employeesActivities[i]).find('span')[0].innerHTML}`)
+        if (funcionariosSelected.length === 0 && !$(horariosfuncionarios[i]).find('input')[0].checked) {
+            return alert(`Falta selecionar a atividade de ${$(horariosfuncionarios[i]).find('span')[0].innerHTML}`)
         }*/
 
 
         array.employee[i] = {
-            name: $(employeesActivities[i]).find('span')[0].innerHTML,
-            activitiesSelected,
-           // folga: $(employeesActivities[i]).find('input')[0].checked
+            name: $(horariosfuncionarios[i]).find('span')[0].innerHTML,
+            funcionariosSelected,
+           // folga: $(horariosfuncionarios[i]).find('input')[0].checked
         }
 
         localStorage.setItem(selectDay, JSON.stringify(array))
-
-
+        
     }
+   
     ListExist()
+}
+
+function copyTextToSend(){
+    let selectDay = $('#day > option:selected')[0].innerText
+    let { employee } = JSON.parse(localStorage.getItem(`${selectDay}`))
+    
+    let textToCopy = `${selectDay}\n`
+    for(let i = 0; i < employee.length; i++){
+        if(employee[i].funcionariosSelected.length > 0){
+            textToCopy += `\n${employee[i].name}\n`
+            for(let n = 0; n < employee[i].funcionariosSelected.length; n++){
+                textToCopy += ` - ${employee[i].funcionariosSelected[n]}\n` 
+            }
+        }
+    }
+    console.log(textToCopy)
 }
 $('#clear').click(() => { ListExist({ clear: true }) })
 $('#saveDay').click(saveDay)
@@ -389,7 +405,7 @@ function folgaCheckBox(index) {
     }
     pessoasFolgando = folgando
  
-    getAllEmployees()
+    getAllhorarios()
     if (checked) {
         $(employeeListView[index]).find('select').attr('disabled', '')
     } else {
@@ -409,38 +425,38 @@ function folgaCheckBox(index) {
 
 function deleteEmployee(index) {
     let newArray = [];
-    if (employees.length == 1) {
-        employees = []
+    if (horarios.length == 1) {
+        horarios = []
         localStorage.removeItem('horario')
-        getAllEmployees();
+        getAllhorarios();
         return
 
     }
-    for (let i = 0; i < employees.length; i++) {
+    for (let i = 0; i < horarios.length; i++) {
         if (i !== index) {
-            newArray.push(employees[i])
+            newArray.push(horarios[i])
         }
     }
 
     localStorage.setItem("horario", JSON.stringify(newArray))
-    getAllEmployees()
+    getAllhorarios()
 }
-function deleteActivity(index) {
+function deleteFuncionario(index) {
     let newArray = []
-    if (activities.length == 1) {
-        activities = []
-        localStorage.removeItem('activities')
-        getActivities();
+    if (funcionarios.length == 1) {
+        funcionarios = []
+        localStorage.removeItem('funcionarios')
+        getfuncionarios();
         return
     }
-    for (let i = 0; i < activities.length; i++) {
+    for (let i = 0; i < funcionarios.length; i++) {
         if (i !== index) {
-            newArray.push(activities[i])
+            newArray.push(funcionarios[i])
         }
     }
-    localStorage.setItem("activities", JSON.stringify(newArray))
-    getActivities();
-    getAllEmployees();
+    localStorage.setItem("funcionarios", JSON.stringify(newArray))
+    getfuncionarios();
+    getAllhorarios();
 
 }
 
@@ -455,8 +471,8 @@ document.querySelector("#activity").addEventListener("keyup", event => {
     event.preventDefault();
 });
 
-getActivities()
-getAllEmployees()
+getfuncionarios()
+getAllhorarios()
 ListExist()
 createNewEmployeeButton.addEventListener('click', createNewEmployee)
 createNewActivityButton.addEventListener('click', createNewActivity)

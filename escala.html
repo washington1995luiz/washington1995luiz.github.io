@@ -17,7 +17,7 @@
                 <label for="">Agenda da semana</label>
             </div>
             <div style="display: flex; flex-direction: initial; align-items: center;">
-                <input type="button" onclick="location.href='./escala.html';" value="Criar Escala" />
+                <input type="button" onclick="location.href='./pdf.html';" value="Enviar para Whatsapp" />
             </div>
         </div>
     </div>
@@ -53,34 +53,58 @@
                 <ul style="color: white;">
                     <li style="display: none;" id="day1">
                         <span>Domingo</span>
-                        <div><button class="visualizarPdf">Visualizar</button><button
-                                class="imprimirPdf">Imprimir</button> </div>
+                        <div><button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button  onclick="copyTextToSend()" class="copyText">Copiar</button>
+                        </div>
                     </li>
                     <li style="display: none;" id="day2">
                         <span>Segunda</span>
-                        <div><button class="visualizarPdf">Visualizar</button> <button
-                                class="imprimirPdf">Imprimir</button> </div>
+                        <div>
+                            <button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button onclick="copyTextToSend()" class="copyText">Copiar</button>
+                        </div>
                     </li>
                     <li style="display: none;" id="day3">
                         <span>Terça </span>
-                        <div><button class="visualizarPdf">Visualizar</button> <button
-                                class="imprimirPdf">Imprimir</button> </div>
+                        <div>
+                            <button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button  onclick="copyTextToSend()"  class="copyText">Copiar</button>
+                        </div>
                     </li>
-                    <li style="display: none;" id="day4"><span>Quarta </span>
-                        <div><button class="visualizarPdf">Visualizar</button> <button
-                                class="imprimirPdf">Imprimir</button> </div>
+                    <li style="display: none;" id="day4">
+                        <span>Quarta </span>
+                        <div>
+                            <button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button  onclick="copyTextToSend()"  class="copyText">Copiar</button>
+                        </div>
                     </li>
-                    <li style="display: none;" id="day5"><span>Quinta </span>
-                        <div><button class="visualizarPdf">Visualizar</button> <button
-                                class="imprimirPdf">Imprimir</button> </div>
+                    <li style="display: none;" id="day5">
+                        <span>Quinta </span>
+                        <div>
+                            <button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button  onclick="copyTextToSend()"  class="copyText">Copiar</button>
+                        </div>
                     </li>
-                    <li style="display: none;" id="day6"><span>Sexta </span>
-                        <div><button class="visualizarPdf">Visualizar</button> <button
-                                class="imprimirPdf">Imprimir</button> </div>
+                    <li style="display: none;" id="day6">
+                        <span>Sexta </span>
+                        <div>
+                            <button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button  onclick="copyTextToSend()"  class="copyText">Copiar</button>
+                        </div>
                     </li>
-                    <li style="display: none;" id="day7"><span>Sábado </span>
-                        <div><button class="visualizarPdf">Visualizar</button> <button
-                                class="imprimirPdf">Imprimir</button> </div>
+                    <li style="display: none;" id="day7">
+                        <span>Sábado </span>
+                        <div>
+                            <button class="visualizarPdf">Visualizar</button>
+                            <button class="imprimirPdf">Imprimir</button>
+                            <button  onclick="copyTextToSend()"  class="copyText">Copiar</button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -89,7 +113,7 @@
         <div class="atividades">
             <h4>Colaboradores</h4>
             <div class="addAtividadeStyle">
-                <input type="text" name="activity" id="activity" placeholder="Atividade">
+                <input type="text" name="activity" id="activity" placeholder="Nome funcionário">
                 <button id="salvarAtividade">Salvar</button>
             </div>
 

@@ -6,9 +6,7 @@ const divConnect = document.getElementById("connect");
 
 form.addEventListener("submit", submitForm);
 const server = "https://whatsapp-u6dl.onrender.com";
-
 const socket = new WebSocket(`wss://whatsapp-u6dl.onrender.com`);
-
 let animationInitialized = false;
 let countAnimation = 0;
 
@@ -21,6 +19,8 @@ socket.addEventListener('message', event => {
                 animationConnecting(true)
         if (event.data.toString().includes("svg"))
                 document.getElementById('qrdiv').innerHTML = event.data
+        if (event.data.toString().includes("disconnected"))
+                connected()
 
 })
 function animationConnecting(stop) {
@@ -61,28 +61,33 @@ function animationConnecting(stop) {
 }
 
 
-function submitForm(e) {
+async function submitForm(e) {
         e.preventDefault()
-        const name = document.getElementById("name");
+        const number = document.getElementById("number");
+        const text = document.getElementById("text");
         const files = document.getElementById("files");
         const formData = new FormData();
-        formData.append("number", name.value);
-        for (let i = 0; i < files.files.length; i++) {
-                formData.append("files", files.files[i]);
+        if (number.value == '') return alert("Número Whatsapp não pode estar vázio!")
+        formData.append("number", number.value);
+        if (text.value !== '') {
+                formData.append("text", text.value);
         }
-        fetch(`${server}/sendMessage`, {
+        if (files.files.length > 0) {
+                formData
+                for (let i = 0; i < files.files.length; i++) {
+                        formData.append("files", files.files[i]);
+                }
+        }
+        let url = server;
 
-                method: 'POST',
-                body: formData
-        })
-                .then(async (res) => {
-                        let { error, message } = await res.json()
-                        if (error) {
-                                return alert(error)
-                        }
-                        alert(message)
-                })
-                .catch((err) => ("Error occured", err));
+        if (text.value !== '' && files.files.length > 0) url += "/sendTextFile"
+        if (text.value == '' && files.files.length > 0) url += "/sendFile"
+        if (text.value !== '' && files.files.length == 0 || files.files == undefined) url += "/sendText"
+        if (url == server) return alert("Você não selecionou um arquivo ou não digitou nenhum texto!");
+        let response = await fetch(url, { method: "POST", body: formData });
+        let { error, message } = await response.json()
+        if (error) return alert(error)
+        alert(message)
 }
 
 
