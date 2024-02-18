@@ -7,6 +7,8 @@ const divConnect = document.getElementById("connect");
 form.addEventListener("submit", submitForm);
 const server = "https://whatsapp-u6dl.onrender.com";
 const socket = new WebSocket(`wss://whatsapp-u6dl.onrender.com`);
+//const server = "http://localhost:8080";
+//const socket = new WebSocket(`ws://localhost:8080`);
 let animationInitialized = false;
 let countAnimation = 0;
 
@@ -84,10 +86,17 @@ async function submitForm(e) {
         if (text.value == '' && files.files.length > 0) url += "/sendFile"
         if (text.value !== '' && files.files.length == 0 || files.files == undefined) url += "/sendText"
         if (url == server) return alert("Você não selecionou um arquivo ou não digitou nenhum texto!");
+
         let response = await fetch(url, { method: "POST", body: formData });
+        if (response.status === 500) {
+                alert("Arquivo muito grande para ser enviado! - Máximo 40Mb")
+        }
         let { error, message } = await response.json()
         if (error) return alert(error)
         alert(message)
+
+
+
 }
 
 
